@@ -1,54 +1,29 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
-{ pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
-  packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
+# shell.nix
+
+# This is a basic Nix shell expression.
+# It uses the default 'nixpkgs' channel currently configured on your system.
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  # These are the packages that will be available on your PATH when you enter the shell.
+  packages = with pkgs; [
+    # 1. Conversion Tool: The universal markup converter.
+    # Essential for turning your Markdown files into PDF, EPUB, DOCX, etc.
+    pandoc 
+    
+    # 2. PDF Compiler: LaTeX distribution required by Pandoc to generate high-quality PDFs.
+    # We use a compact scheme to save on download/build time.
+    texlive.combined.scheme-basic
+
+    # 3. Version Control: Essential for working with GitHub.
+    git 
   ];
-  # Sets environment variables in the workspace
-  env = {};
-  idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
-    extensions = [
-      # "vscodevim.vim"
-      "google.gemini-cli-vscode-ide-companion"
-    ];
-    # Enable previews
-    previews = {
-      enable = true;
-      previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
-      };
-    };
-    # Workspace lifecycle hooks
-    workspace = {
-      # Runs when a workspace is first created
-      onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = [ ".idx/dev.nix" "README.md" ];
-      };
-      # Runs when the workspace is (re)started
-      onStart = {
-        # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
-      };
-    };
-  };
+
+  # Optional: A startup message and a common alias to make things easier
+  shellHook = ''
+    echo "✍️ Entering simple writing environment (pandoc, git available)."
+    # Create an alias to compile your book (adjust 'my_book.md' as needed)
+    alias compile-book="pandoc --pdf-engine=xelatex my_book.md -o my_book.pdf"
+    
+  '';
 }
