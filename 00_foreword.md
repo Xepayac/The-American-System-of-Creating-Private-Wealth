@@ -1,4 +1,4 @@
-### **Forward**
+### **Foreward**
 
 From your vantage point, as one of America's **builders**, it’s clear something isn’t right. You see the constant churn of headlines and the endless debates, but it doesn't quite match the reality you live and work in every day. You watch immense wealth channeled to a select few, and it feels as though they operate by a **deliberately complex code** that twists the truth. You might wonder if they’ve simply mastered the game better, or perhaps even rigged it. And in a sense, your instincts are correct. What you sense isn't a simple 'us vs. them' conflict, but a profound truth about the very design of our national economic machine—a machine that seems to be running with an outdated user's manual and a broken control panel.
 
